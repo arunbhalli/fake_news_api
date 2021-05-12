@@ -1,6 +1,6 @@
 class Api::ArticlesController < ApplicationController
   def index
-    articles = Article.all().most_recent
+    articles = Article.all.most_recent
     if articles == []
       render json: { articles: articles }, status: 204
     else
@@ -10,7 +10,6 @@ class Api::ArticlesController < ApplicationController
 
   def show
     article = Article.find(params[:id])
-    render json: { article: article}
+    render json: article, serializer: ArticlesShowSerializer
   end
-
 end
