@@ -21,4 +21,18 @@ RSpec.describe "GET /api/articles/:id" do
       expect(response_json["article"]["date"]).to eq Time.now.strftime("%F")
     end
   end
+
+  describe 'unsuccessfully with no article' do
+    before do
+      get '/api/articles/123'
+    end
+
+    it 'is expected to response with status 404' do
+      expect(response).to have_http_status 404
+    end
+
+    it 'is expected to have error message' do
+      expect(response_json['error_message']).to eq 'Article does not exist'
+    end
+  end
 end
